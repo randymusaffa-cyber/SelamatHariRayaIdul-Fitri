@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕌 Selamat Idul Fitri 1445 H 🕌</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: linear-gradient(160deg, #0d2137 0%, #1a3a5c 60%, #0d2137 100%);
+            border: 2px solid rgba(212, 175, 55, 0.4);
+            border-radius: 24px;
+            max-width: 540px;
+            width: 100%;
+            padding: 36px 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(212,175,55,0.15), 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        /* Decorative stars */
+        .container::before {
+            content: '✦ ✦ ✦ ✦ ✦';
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(212,175,55,0.3);
+            font-size: 10px;
+            letter-spacing: 12px;
+        }
+        .container::after {
+            content: '✦ ✦ ✦ ✦ ✦';
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(212,175,55,0.3);
+            font-size: 10px;
+            letter-spacing: 12px;
+        }
+
+        /* Gold divider */
+        .divider {
+            width: 60%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #d4af37, transparent);
+            margin: 14px auto;
+        }
+
+        .title {
+            font-size: 13px;
+            letter-spacing: 5px;
+            color: #d4af37;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin: 4px 0 2px;
+            letter-spacing: 1px;
+        }
+
+        .year {
+            font-size: 14px;
+            color: rgba(212,175,55,0.8);
+            letter-spacing: 4px;
+        }
+
+        .maaf-box {
+            margin: 14px auto 18px;
+            background: rgba(212,175,55,0.08);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 50px;
+            display: inline-block;
+            padding: 7px 28px;
+            font-size: 15px;
+            color: #f0e0a0;
+            letter-spacing: 1px;
+        }
+
+        /* ========== SINGLE PHOTO FRAME ========== */
+        .photo-frame {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .photo-frame-single {
+            width: 100%;
+            max-width: 380px;
+            border-radius: 18px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.5), 0 10px 40px rgba(0,0,0,0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+            background: rgba(255,255,255,0.07);
+        }
+        .photo-frame-single:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.8), 0 16px 50px rgba(0,0,0,0.55);
+        }
+
+        .photo-display {
+            width: 100%;
+            height: auto;
+            min-height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .photo-display img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: #000;
+        }
+
+        /* Placeholder shown when no photo */
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .photo-placeholder:hover { background: rgba(255,255,255,0.1); }
+
+        .placeholder-icon { font-size: 52px; line-height: 1; }
+        .placeholder-text {
+            font-size: 13px;
+            color: rgba(212,175,55,0.8);
+            margin-top: 10px;
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 1px;
+        }
+
+        /* Camera icon overlay (always visible bottom-right) */
+        .upload-overlay {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid rgba(212,175,55,0.4);
+            transition: background 0.2s;
+        }
+        .upload-overlay:hover { background: rgba(212,175,55,0.3); }
+
+        /* Hidden file input */
+        #uploadPhoto { display: none; }
+
+        /* ========== FAMILY LABEL ========== */
+        .family-label {
+            font-size: 13px;
+            color: rgba(212,175,55,0.85);
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        /* ========== DOA BOX ========== */
+        .doa-box {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin: 0 0 16px;
+            color: rgba(255,255,255,0.85);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .arabic {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 20px;
+            color: #d4af37;
+            margin-bottom: 10px;
+            direction: rtl;
+        }
+
+        .arabic2 {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 16px;
+            color: rgba(212,175,55,0.75);
+            margin-top: 10px;
+            direction: rtl;
+        }
+
+        .aamiin {
+            margin-top: 10px;
+            font-style: italic;
+            color: #d4af37;
+            font-size: 14px;
+        }
+
+        /* ========== CLOSING ========== */
+        .closing {
+            font-size: 13px;
+            color: #d4af37;
+            letter-spacing: 3px;
+            margin-bottom: 18px;
+        }
+
+        /* ========== BUTTONS ========== */
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .btn {
+            padding: 9px 18px;
+            border-radius: 50px;
+            border: none;
+            font-family: 'Crimson Text', serif;
+            font-size: 13px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        .btn:active { transform: scale(0.97); }
+
+        .btn-share { background: linear-gradient(135deg, #d4af37, #f0d060); color: #1a1a2e; font-weight: 700; }
+        .btn-print  { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-download { background: rgba(212,175,55,0.15); color: #d4af37; border: 1px solid rgba(212,175,55,0.35); }
+
+        /* ========== CREDIT ========== */
+        .credit {
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 1px;
+        }
+
+        /* ========== TOAST ========== */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #d4af37;
+            color: #1a1a2e;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+            z-index: 999;
+        }
+        #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+
+<div class="container" id="cardContainer">
+
+    <p class="title">✦ SELAMAT HARI RAYA ✦</p>
+    <h1 class="subtitle">IDUL FITRI</h1>
+    <p class="year">1 4 4 7  H</p>
+
+    <div class="divider"></div>
+
+    <div class="maaf-box">Mohon Maaf Lahir dan Batin</div>
+
+    <!-- Single Photo Frame -->
+    <div class="photo-frame">
+        <div class="photo-frame-single" onclick="document.getElementById('uploadPhoto').click()">
+            <div class="photo-display" id="photoDisplay">
+                <div class="photo-placeholder" id="photoPlaceholder">
+                    <span class="placeholder-icon">👨‍👩‍👦</span>
+                    <span class="placeholder-text">📷 Tap untuk upload foto bersama</span>
+                </div>
+            </div>
+            <div class="upload-overlay" title="Upload foto">📷</div>
+        </div>
+    </div>
+
+    <!-- Hidden input -->
+    <input type="file" id="uploadPhoto" accept="image/*">
+
+    <div class="family-label">👨‍👩‍👦‍👦 PAPA & MAMA TERCINTA 👨‍👩‍👦‍👦</div>
+
+    <div class="divider"></div>
+
+    <!-- Doa -->
+    <div class="doa-box">
+        <div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <p>Ya Allah SWT, limpahkanlah rahmat-Mu yang wasi' kepada keluarga kami semua. Jadikanlah Idul Fitri ini momentum taubat, peningkatan iman dan kebersamaan.</p>
+        <div class="arabic2">طَهَرْتُمْ وَتَطَهَّرَ اللَّهُ مِنْكُمْ</div>
+        <div class="aamiin">🤲 Aamiin Yaa Rabbal 'Aalamiin 🤲</div>
+    </div>
+
+    <div class="closing">🌙 MOHON MAAF LAHIR & BATIN 🌙</div>
+
+
+
+    <div class="credit">Idul Fitri 1447 H</div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+    // ── Upload Photo ─────────────────────────────────────────
+    document.getElementById('uploadPhoto').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            const display = document.getElementById('photoDisplay');
+            const placeholder = document.getElementById('photoPlaceholder');
+            const existingImg = display.querySelector('img');
+            if (existingImg) existingImg.remove();
+            if (placeholder) placeholder.style.display = 'none';
+            const img = document.createElement('img');
+            img.src = ev.target.result;
+            display.insertBefore(img, display.firstChild);
+            showToast('✅ Foto berhasil dimasukkan!');
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // ── Share ─────────────────────────────────────────────────
+    function shareCard() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Selamat Idul Fitri 1445 H',
+                text: 'Selamat Hari Raya Idul Fitri 1445 H. Mohon Maaf Lahir & Batin 🙏',
+            }).catch(() => {});
+        } else {
+            showToast('📋 Link di-copy! Paste untuk share.');
+        }
+    }
+
+    // ── Download (html2canvas via CDN) ────────────────────────
+    function downloadCard() {
+        showToast('💾 Menyimpan kartu...');
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        script.onload = function() {
+            html2canvas(document.getElementById('cardContainer'), {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'idul_fitri_1445H.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                showToast('✅ Kartu berhasil disimpan!');
+            });
+        };
+        document.head.appendChild(script);
+    }
+
+    // ── Toast helper ──────────────────────────────────────────
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2800);
+    }
+</script>
+</body>
+</html>
