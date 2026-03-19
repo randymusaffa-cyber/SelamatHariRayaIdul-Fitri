@@ -28,7 +28,6 @@
             overflow-x: hidden;
         }
  
-        /* STARFIELD */
         .stars-canvas {
             position: fixed;
             inset: 0;
@@ -36,7 +35,6 @@
             z-index: 0;
         }
  
-        /* FLOATING LANTERNS */
         .lantern {
             position: fixed;
             pointer-events: none;
@@ -52,7 +50,6 @@
             100% { transform: translateY(-15vh) translateX(var(--drift)) rotate(var(--rot)); opacity: 0; }
         }
  
-        /* SPARKLES */
         .sparkle {
             position: fixed;
             width: 3px; height: 3px;
@@ -67,7 +64,6 @@
             50%      { opacity:1; transform: scale(1.5); }
         }
  
-        /* CARD */
         .container {
             background: linear-gradient(160deg, #0d2137 0%, #1a3a5c 55%, #0d2137 100%);
             border: 1.5px solid var(--gold-dim);
@@ -101,7 +97,6 @@
             50%      { opacity:1; }
         }
  
-        /* CORNER ORNAMENTS */
         .corner {
             position: absolute;
             width: 50px; height: 50px;
@@ -177,7 +172,6 @@
             animation: fadeSlideDown 1s 0.8s both;
         }
  
-        /* PHOTO FRAME */
         .photo-frame {
             display: flex;
             justify-content: center;
@@ -190,14 +184,8 @@
             border-radius: 18px;
             overflow: hidden;
             position: relative;
-            cursor: pointer;
             box-shadow: 0 0 0 2px rgba(212,175,55,0.5), 0 10px 40px rgba(0,0,0,0.5);
-            transition: transform 0.25s, box-shadow 0.25s;
             background: rgba(255,255,255,0.05);
-        }
-        .photo-frame-single:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 0 0 3px rgba(212,175,55,0.85), 0 18px 54px rgba(0,0,0,0.55);
         }
         .photo-display {
             width: 100%;
@@ -213,22 +201,7 @@
             display: block;
             background: #000;
         }
-        .upload-overlay {
-            position: absolute;
-            bottom: 10px; right: 10px;
-            background: rgba(0,0,0,0.55);
-            border-radius: 50%;
-            width: 34px; height: 34px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px;
-            cursor: pointer;
-            border: 1px solid rgba(212,175,55,0.4);
-            transition: background 0.2s;
-        }
-        .upload-overlay:hover { background: rgba(212,175,55,0.3); }
-        #uploadPhoto { display: none; }
  
-        /* FAMILY LABEL — pushed down further */
         .family-label {
             font-size: 13px;
             color: rgba(212,175,55,0.9);
@@ -238,7 +211,6 @@
             animation: fadeSlideDown 1s 1s both;
         }
  
-        /* DOA BOX */
         .doa-box {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(212,175,55,0.2);
@@ -279,8 +251,6 @@
             animation: fadeSlideDown 1s 1.2s both;
         }
  
- 
- 
         .credit {
             font-size: 11px;
             color: rgba(255,255,255,0.25);
@@ -288,7 +258,54 @@
             animation: fadeSlideDown 1s 1.4s both;
         }
  
-        /* TOAST */
+        /* ── MUSIC FAB — pojok kanan atas kartu ── */
+        .music-fab {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(10, 22, 40, 0.82);
+            border: 1px solid rgba(212,175,55,0.5);
+            border-radius: 50px;
+            padding: 6px 13px 6px 10px;
+            color: var(--gold);
+            font-family: 'Crimson Text', serif;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            z-index: 20;
+            backdrop-filter: blur(6px);
+            transition: background 0.2s, border-color 0.2s, transform 0.15s;
+        }
+        .music-fab:hover {
+            background: rgba(212,175,55,0.15);
+            border-color: rgba(212,175,55,0.9);
+            transform: scale(1.04);
+        }
+        .music-fab #musicIcon { font-size: 10px; line-height: 1; }
+        .music-fab.playing {
+            border-color: var(--gold);
+            animation: fabPulse 2s ease-in-out infinite;
+        }
+        @keyframes fabPulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+            50%      { box-shadow: 0 0 0 7px rgba(212,175,55,0); }
+        }
+ 
+        /* MOON */
+        .moon-wrap {
+            position: absolute;
+            top: -18px; right: 24px;
+            animation: moonFloat 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes moonFloat {
+            0%,100% { transform: translateY(0) rotate(-5deg); }
+            50%      { transform: translateY(-8px) rotate(5deg); }
+        }
+ 
         #toast {
             position: fixed;
             bottom: 30px; left: 50%;
@@ -305,18 +322,6 @@
             z-index: 999;
         }
         #toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
- 
-        /* MOON */
-        .moon-wrap {
-            position: absolute;
-            top: -18px; right: 24px;
-            animation: moonFloat 6s ease-in-out infinite;
-            pointer-events: none;
-        }
-        @keyframes moonFloat {
-            0%,100% { transform: translateY(0) rotate(-5deg); }
-            50%      { transform: translateY(-8px) rotate(5deg); }
-        }
     </style>
 </head>
 <body>
@@ -325,7 +330,6 @@
  
 <div class="container" id="cardContainer">
  
-    <!-- Corner ornaments -->
     <svg class="corner corner-tl" viewBox="0 0 50 50" fill="none">
         <path d="M2 48 Q2 2 48 2" stroke="#d4af37" stroke-width="1.5" fill="none"/>
         <path d="M2 38 Q2 12 28 2" stroke="#d4af37" stroke-width="0.8" fill="none" opacity="0.5"/>
@@ -355,12 +359,18 @@
         <circle cx="2" cy="48" r="2" fill="#d4af37"/>
     </svg>
  
-    <!-- Floating moon -->
+    <!-- Bulan -->
     <div class="moon-wrap">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
             <path d="M24 4C13 4 4 13 4 24s9 20 20 20c4.2 0 8.1-1.3 11.3-3.5-1.1.1-2.2.2-3.3.2-9.4 0-17-7.6-17-17 0-7.2 4.5-13.4 10.9-15.9C25.3 4.3 24.7 4 24 4z" fill="rgba(212,175,55,0.7)"/>
         </svg>
     </div>
+ 
+    <!-- Tombol Musik pojok kanan atas -->
+    <button class="music-fab" id="musicBtn" onclick="toggleMusic()">
+        <span id="musicIcon">▶</span>
+        <span id="musicLabel">Putar Musik</span>
+    </button>
  
     <div class="star-row">✦ ✦ ✦ ✦ ✦</div>
     <p class="title">✦ SELAMAT HARI RAYA ✦</p>
@@ -371,24 +381,18 @@
  
     <div class="maaf-box">Mohon Maaf Lahir dan Batin</div>
  
-    <!-- Photo Frame -->
     <div class="photo-frame">
-        <div class="photo-frame-single" onclick="document.getElementById('uploadPhoto').click()">
+        <div class="photo-frame-single">
             <div class="photo-display" id="photoDisplay">
                 <img src="foto_ortu.png" alt="Foto Papa &amp; Mama" onerror="this.style.display='none'">
             </div>
-            <div class="upload-overlay" title="Ganti foto">📷</div>
         </div>
     </div>
  
-    <input type="file" id="uploadPhoto" accept="image/*">
- 
-    <!-- Family label — more space from photo -->
     <div class="family-label">Dr.Albahori, M.Ikom &amp; Ir.Lucianty, S.E</div>
  
     <div class="divider"></div>
  
-    <!-- Doa -->
     <div class="doa-box">
         <div class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
         <p>Ya Allah SWT, limpahkanlah rahmat-Mu yang wasi' kepada keluarga kami semua. Jadikanlah Idul Fitri ini momentum taubat, peningkatan iman dan kebersamaan.</p>
@@ -429,7 +433,7 @@
     requestAnimationFrame(draw);
 })();
  
-// ── 2. FLOATING LANTERNS ──────────────────────────────────────
+// ── 2. LANTERNS ───────────────────────────────────────────────
 (function() {
     const makeLantern = (color) => `<svg width="26" height="38" viewBox="0 0 26 38" fill="none">
         <ellipse cx="13" cy="19" rx="8" ry="13" fill="${color}" opacity="0.82"/>
@@ -445,7 +449,7 @@
         const el = document.createElement('div');
         el.className = 'lantern';
         el.innerHTML = makeLantern(colors[Math.floor(Math.random() * colors.length)]);
-        const x = 5 + Math.random() * 90;
+        const x    = 5 + Math.random() * 90;
         const drift = (Math.random() - 0.5) * 100 + 'px';
         const rot   = (Math.random() - 0.5) * 25 + 'deg';
         const dur   = 13 + Math.random() * 10;
@@ -466,184 +470,127 @@
     }
 })();
  
-// ── 4. MUSIC — Auto-play on first user interaction ────────────
-let audioCtx = null, musicStarted = false;
+// ── 4. MUSIK — Web Audio Maqam Hijaz ─────────────────────────
+let audioCtx = null, musicPlaying = false, activeOscs = [];
  
 function buildMelody(ctx) {
+    activeOscs = [];
+ 
     const master = ctx.createGain();
     master.gain.value = 0.28;
     master.connect(ctx.destination);
  
-    // Warm reverb: two feedback delays for spacious hall feel
-    const delay1 = ctx.createDelay(1.0);
-    delay1.delayTime.value = 0.38;
-    const fb1 = ctx.createGain(); fb1.gain.value = 0.32;
+    // Reverb — dua delay bertumpuk biar terasa seperti di masjid
+    const delay1 = ctx.createDelay(1.0); delay1.delayTime.value = 0.38;
+    const fb1 = ctx.createGain(); fb1.gain.value = 0.30;
     delay1.connect(fb1); fb1.connect(delay1);
-    const delay2 = ctx.createDelay(1.0);
-    delay2.delayTime.value = 0.55;
-    const fb2 = ctx.createGain(); fb2.gain.value = 0.18;
+    const delay2 = ctx.createDelay(1.0); delay2.delayTime.value = 0.52;
+    const fb2 = ctx.createGain(); fb2.gain.value = 0.16;
     delay2.connect(fb2); fb2.connect(delay2);
-    const wetGain = ctx.createGain(); wetGain.gain.value = 0.38;
+    const wet = ctx.createGain(); wet.gain.value = 0.35;
     master.connect(delay1); master.connect(delay2);
-    delay1.connect(wetGain); delay2.connect(wetGain);
-    wetGain.connect(ctx.destination);
+    delay1.connect(wet); delay2.connect(wet);
+    wet.connect(ctx.destination);
  
-    // Maqam Hijaz (D root): D Eb F# G A Bb C# D
-    // Frequencies built around D3=146.83 / D4=293.66 / D5=587.33
-    // Scale degrees as multipliers from D4:
-    //   D4=293.66  Eb4=311.13  F#4=369.99  G4=392  A4=440
-    //   Bb4=466.16 C#5=554.37  D5=587.33
+    // Maqam Hijaz — nada khas Islam/Ramadhan
     const D4=293.66, Eb4=311.13, Fs4=370.00, G4=392.00,
           A4=440.00, Bb4=466.16, Cs5=554.37, D5=587.33,
-          D3=146.83, A3=220.00, G3=196.00, Fs3=185.00,
-          Eb3=155.56, Bb3=233.08;
+          D3=146.83, A3=220.00, G3=196.00, Bb3=233.08;
  
-    // Melody inspired by "Ya Nabi Salam Alayka" / Marhaban maqam Hijaz phrasing
-    // [freq, startBeat, durationBeats]  — each beat = 0.52s (≈115 BPM, relaxed)
-    const B = 0.52; // beat duration
+    const B = 0.54; // 1 ketuk ≈ 0.54 detik (~111 BPM, santai & syahdu)
+ 
     const seq = [
-        // ── Phrase 1: ascending Hijaz ──
-        [D4,  0*B, 1.2*B],
-        [Eb4, 1.3*B, 0.5*B],
-        [Fs4, 1.9*B, 0.9*B],
-        [G4,  2.9*B, 1.0*B],
-        [A4,  4.0*B, 1.4*B],
-        [G4,  5.5*B, 0.6*B],
-        [Fs4, 6.2*B, 0.5*B],
-        [Eb4, 6.8*B, 0.5*B],
-        [D4,  7.4*B, 1.6*B],
- 
-        // ── Phrase 2: ornamental climb ──
-        [D4,  9.2*B, 0.5*B],
-        [Fs4, 9.8*B, 0.5*B],
-        [A4,  10.4*B, 0.6*B],
-        [Bb4, 11.1*B, 0.9*B],
-        [A4,  12.1*B, 0.5*B],
-        [G4,  12.7*B, 0.5*B],
-        [Fs4, 13.3*B, 0.5*B],
-        [Eb4, 13.9*B, 0.5*B],
-        [D4,  14.5*B, 1.8*B],
- 
-        // ── Phrase 3: upper register longing ──
-        [A4,  16.5*B, 0.7*B],
-        [Bb4, 17.3*B, 0.6*B],
-        [Cs5, 18.0*B, 0.8*B],
-        [D5,  18.9*B, 1.4*B],
-        [Cs5, 20.4*B, 0.5*B],
-        [Bb4, 21.0*B, 0.5*B],
-        [A4,  21.6*B, 0.5*B],
-        [G4,  22.2*B, 0.5*B],
-        [Fs4, 22.8*B, 0.6*B],
-        [Eb4, 23.5*B, 0.5*B],
-        [D4,  24.1*B, 2.0*B],
- 
-        // ── Phrase 4: gentle descent & resolve ──
-        [G4,  26.3*B, 0.6*B],
-        [Fs4, 27.0*B, 0.5*B],
-        [Eb4, 27.6*B, 0.5*B],
-        [D4,  28.2*B, 0.6*B],
-        [Eb4, 28.9*B, 0.4*B],
-        [Fs4, 29.4*B, 0.5*B],
-        [G4,  30.0*B, 0.8*B],
-        [A4,  30.9*B, 1.2*B],
-        [G4,  32.2*B, 0.5*B],
-        [Fs4, 32.8*B, 0.5*B],
-        [Eb4, 33.4*B, 0.5*B],
-        [D4,  34.0*B, 2.4*B],
+        // Frase 1 — naik pelan
+        [D4,  0.0*B,1.2*B], [Eb4,1.3*B,0.5*B], [Fs4,1.9*B,0.9*B],
+        [G4,  2.9*B,1.0*B], [A4, 4.0*B,1.4*B], [G4, 5.5*B,0.6*B],
+        [Fs4, 6.2*B,0.5*B], [Eb4,6.8*B,0.5*B], [D4, 7.4*B,1.8*B],
+        // Frase 2 — ornamen naik
+        [D4,  9.4*B,0.5*B], [Fs4,9.9*B,0.5*B], [A4,10.5*B,0.6*B],
+        [Bb4,11.2*B,0.9*B], [A4,12.2*B,0.5*B], [G4,12.8*B,0.5*B],
+        [Fs4,13.4*B,0.5*B], [Eb4,14.0*B,0.5*B],[D4,14.6*B,2.0*B],
+        // Frase 3 — register tinggi, rasa rindu
+        [A4, 16.8*B,0.7*B], [Bb4,17.6*B,0.6*B],[Cs5,18.3*B,0.8*B],
+        [D5, 19.2*B,1.5*B], [Cs5,20.8*B,0.5*B],[Bb4,21.4*B,0.5*B],
+        [A4, 22.0*B,0.5*B], [G4, 22.6*B,0.5*B],[Fs4,23.2*B,0.6*B],
+        [Eb4,23.9*B,0.5*B], [D4, 24.5*B,2.2*B],
+        // Frase 4 — turun & resolve
+        [G4, 26.9*B,0.6*B], [Fs4,27.6*B,0.5*B],[Eb4,28.2*B,0.5*B],
+        [D4, 28.8*B,0.6*B], [Eb4,29.5*B,0.4*B],[Fs4,30.0*B,0.5*B],
+        [G4, 30.6*B,0.8*B], [A4, 31.5*B,1.2*B],[G4, 32.8*B,0.5*B],
+        [Fs4,33.4*B,0.5*B], [Eb4,34.0*B,0.5*B],[D4, 34.6*B,2.6*B],
     ];
  
-    // Bass drone (D2 + A2) for depth
+    // Bass drone untuk kedalaman
     const drone = [
-        [D3,  0,     36*B, 0.18],
-        [A3,  0,     36*B, 0.10],
-        [G3,  9*B,   9*B,  0.08],
-        [Bb3, 16*B,  8*B,  0.08],
+        [D3, 0,      37*B, 0.15],
+        [A3, 0,      37*B, 0.08],
+        [G3, 9*B,    9*B,  0.07],
+        [Bb3,16*B,   8*B,  0.07],
     ];
  
-    const loopLen = 37 * B;
+    const loopLen = 38 * B;
  
-    function playNote(freq, start, dur, vol, type='sine') {
+    function note(freq, start, dur, vol, type='sine') {
         const osc = ctx.createOscillator();
         const g   = ctx.createGain();
         osc.type = type;
         osc.frequency.value = freq;
-        const attack = Math.min(0.06, dur * 0.1);
-        const release = Math.min(0.12, dur * 0.25);
+        const atk = Math.min(0.07, dur * 0.1);
+        const rel = Math.min(0.14, dur * 0.25);
         g.gain.setValueAtTime(0, start);
-        g.gain.linearRampToValueAtTime(vol, start + attack);
-        g.gain.setValueAtTime(vol, start + dur - release);
+        g.gain.linearRampToValueAtTime(vol, start + atk);
+        g.gain.setValueAtTime(vol, start + dur - rel);
         g.gain.linearRampToValueAtTime(0, start + dur);
         osc.connect(g); g.connect(master);
         osc.start(start); osc.stop(start + dur + 0.05);
+        activeOscs.push(osc);
  
-        // Soft harmonic overtone
-        const osc2 = ctx.createOscillator();
-        const g2   = ctx.createGain();
-        osc2.type = 'triangle';
-        osc2.frequency.value = freq * 2;
+        // Overtone halus
+        const o2 = ctx.createOscillator();
+        const g2 = ctx.createGain();
+        o2.type = 'triangle'; o2.frequency.value = freq * 2;
         g2.gain.setValueAtTime(0, start);
-        g2.gain.linearRampToValueAtTime(vol * 0.18, start + attack);
-        g2.gain.linearRampToValueAtTime(0, start + dur * 0.55);
-        osc2.connect(g2); g2.connect(master);
-        osc2.start(start); osc2.stop(start + dur * 0.6);
+        g2.gain.linearRampToValueAtTime(vol * 0.15, start + atk);
+        g2.gain.linearRampToValueAtTime(0, start + dur * 0.5);
+        o2.connect(g2); g2.connect(master);
+        o2.start(start); o2.stop(start + dur * 0.55);
+        activeOscs.push(o2);
     }
  
-    function playLoop(offset) {
+    function loop(offset) {
         const t0 = ctx.currentTime + offset;
-        // Melody
-        seq.forEach(([freq, st, dur]) => playNote(freq, t0 + st, dur, 0.52));
-        // Bass drone
-        drone.forEach(([freq, st, dur, vol]) => playNote(freq, t0 + st, dur, vol, 'triangle'));
+        seq.forEach(([f, t, d])      => note(f, t0+t, d, 0.50));
+        drone.forEach(([f, t, d, v]) => note(f, t0+t, d, v, 'triangle'));
     }
  
-    // Play 8 loops (≈ 2.5 min of continuous music)
-    for (let i = 0; i < 8; i++) playLoop(i * loopLen);
+    for (let i = 0; i < 10; i++) loop(i * loopLen); // ~6 menit musik
 }
  
-function startMusic() {
-    if (musicStarted) return;
-    musicStarted = true;
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    buildMelody(audioCtx);
-    // Remove listeners after first trigger
-    ['click','touchstart','keydown'].forEach(e => document.removeEventListener(e, startMusic));
-}
+function toggleMusic() {
+    const btn   = document.getElementById('musicBtn');
+    const icon  = document.getElementById('musicIcon');
+    const label = document.getElementById('musicLabel');
  
-// Try immediate autoplay first; fall back to first-interaction
-try {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'running') {
+    if (!musicPlaying) {
+        // Buat AudioContext baru (wajib setelah user gesture agar jalan di HP)
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
         buildMelody(audioCtx);
-        musicStarted = true;
+        musicPlaying = true;
+        icon.textContent  = '⏸';
+        label.textContent = 'Pause';
+        btn.classList.add('playing');
     } else {
-        ['click','touchstart','keydown'].forEach(e => document.addEventListener(e, startMusic, { once: true }));
+        // Stop semua osilator & tutup context
+        activeOscs.forEach(o => { try { o.stop(); } catch(e){} });
+        activeOscs = [];
+        audioCtx.close().catch(()=>{});
+        audioCtx = null;
+        musicPlaying = false;
+        icon.textContent  = '▶';
+        label.textContent = 'Putar Musik';
+        btn.classList.remove('playing');
     }
-} catch(e) {
-    ['click','touchstart','keydown'].forEach(ev => document.addEventListener(ev, startMusic, { once: true }));
-}
- 
-// ── 5. UPLOAD PHOTO ───────────────────────────────────────────
-document.getElementById('uploadPhoto').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-        const display = document.getElementById('photoDisplay');
-        let img = display.querySelector('img');
-        if (!img) { img = document.createElement('img'); display.appendChild(img); }
-        img.src = ev.target.result;
-        img.style.display = 'block';
-        showToast('✅ Foto berhasil dimasukkan!');
-    };
-    reader.readAsDataURL(file);
-});
- 
-// ── 6. TOAST ──────────────────────────────────────────────────
-function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2800);
 }
 </script>
 </body>
